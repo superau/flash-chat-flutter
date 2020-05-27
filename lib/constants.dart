@@ -19,6 +19,7 @@ const kMessageContainerDecoration = BoxDecoration(
 );
 
 const kTextFiledDecoration = InputDecoration(
+
   hintText: 'Enter Default Text',
   hintStyle: TextStyle(color: Colors.grey),
   contentPadding:

@@ -56,18 +56,18 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   ),
                 ),
                 SizedBox(
-                  width: 250.0,
+                  width: 240.0,
                   child: TypewriterAnimatedTextKit(
                       onTap: () {
                         print("Tap Event");
                       },
                       text: [
-                        "Discipline is the best tool",
-                        "Design first, then code",
-                        "Do not patch bugs out, rewrite them",
-                        "Do not test bugs out, design them out",
+                        "Flash Chat",
                       ],
-                      textStyle: TextStyle(fontSize: 30.0, fontFamily: "Agne"),
+                      textStyle: TextStyle(
+                        fontSize: 45.0,
+                        fontWeight: FontWeight.w900,
+                      ),
                       textAlign: TextAlign.start,
                       alignment:
                           AlignmentDirectional.topStart // or Alignment.topLeft
