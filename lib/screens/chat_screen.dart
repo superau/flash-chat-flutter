@@ -13,9 +13,9 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   final _fireStore = Firestore.instance;
-    FirebaseUser loggedInUser;
+  FirebaseUser loggedInUser;
 
-    String messageText;
+  String messageText;
 
   @override
   void initState() {
@@ -47,7 +47,6 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: () {
                 _auth.signOut();
                 Navigator.pop(context);
-
               }),
         ],
         title: Text('⚡️Chat'),
@@ -58,6 +57,34 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+              stream: _fireStore.collection('message').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.lightBlueAccent,
+                    ),
+                  );
+                } else {
+                  final messages = snapshot.data.documents;
+                  List<Text> messageWidgets = [];
+
+                  for (var message in messages) {
+                    print(message);
+                    final messageText = message.data['text'];
+                    final messageSender = message.data['sender'];
+
+                    final messageWidget =
+                    Text('$messageText from $messageSender');
+                    messageWidgets.add(messageWidget);
+                  }
+                  return Column(
+                    children: messageWidgets,
+                  );
+                }
+              },
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
